@@ -18,7 +18,7 @@ app.secret_key = os.urandom(24)
 # 'questions' dictionary contains 5 questions and their answers.
 # The questions are numbered from 1 to 5
 
-sender_questions = questions = { "1" : { "question" : "What is this colour name?", "answer" : "Barack Obama", "option": {"Black", "White", "Blue", "Red", "Green"}},
+sender_questions = { "1" : { "question" : "What is this colour name?", "answer" : "Barack Obama", "option": {"Black", "White", "Blue", "Red", "Green"}},
               "2" : { "question" : "What do you feel when you are looking at this colour?", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
               "3" : { "question" : "Choose any below item that you think is related with this picture.", "answer" : "Barack Obama", "option": {"Girl/Sea/Bicycle/Flower/Tree", "Fire/War/Soldier", "Sun/Old man/Car", "Window/Hotel/People"}},
               "4" : { "question" : "What do you feel when you are looking at this picture?", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
@@ -35,7 +35,7 @@ sender_questions = questions = { "1" : { "question" : "What is this colour name?
               "15" : { "question" : "Select the category that this name is belong to.", "answer" : "New Delhi", "option" : {"Country", "Actress", "Singer", "Family Member", "Artist"}},
               "16" : { "question" : "What do you feel when you are looking at this picture?", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}}}
 
-questions = { "1" : { "question" : "Select the strangest object that you find into your mind. If you received any of the below objects, select any one that is most close to your one.", "answer" : "Barack Obama", "option": {"Static vision", "Dynamic vision", "Color", "Words", "Did not receive anything"}},
+receiver_questions = { "1" : { "question" : "Select the strangest object that you find into your mind. If you received any of the below objects, select any one that is most close to your one.", "answer" : "Barack Obama", "option": {"Static vision", "Dynamic vision", "Color", "Words", "Did not receive anything"}},
               "2" : { "question" : "Open your eyes. Please let us know what you have felt during the trail.", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
               "3" : { "question" : "Select the strangest object that you find into your mind. If you received any of the below objects, select any one that is most close to your one.", "answer" : "Barack Obama", "option": {"Static vision", "Dynamic vision", "Color", "Words", "Did not receive anything"}},
               "4" : { "question" : "Open your eyes. Please let us know what you have felt during the trail.", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
@@ -75,7 +75,7 @@ def index():
     if not entered_answer:
       flash("Please enter an answer", "error") # Show error if no answer entered
       
-    elif entered_answer != questions[session["current_question"]]["answer"]:
+    elif entered_answer != sender_questions[session["current_question"]]["answer"]:
       # Show error if the answer is incorrect for the current question
       flash("The answer is incorrect. Try again", "error")
     
@@ -83,7 +83,7 @@ def index():
       # The answer is correct. So set the current question to the next number
       session["current_question"] = str(int(session["current_question"])+1)
     
-      if session["current_question"] in questions:
+      if session["current_question"] in sender_questions:
         # If the question exists in the dictionary, redirect to the question
         redirect(url_for('index'))
       
@@ -97,7 +97,7 @@ def index():
     # current question to question 1 and save it in the session.
     session["current_question"] = "1"
   
-  elif session["current_question"] not in questions:
+  elif session["current_question"] not in sender_questions:
     # If the current question number is not available in the questions
     # dictionary, it means that the user has completed the quiz. So show
     # the success page.
@@ -106,8 +106,56 @@ def index():
   # If the request is a GET request or the answer wasn't entered or the entered
   # answer is wrong, show the current questions with messages, if any.
   return render_template("quiz.html",
-                         question=questions[session["current_question"]]["question"],
-                         options=questions[session["current_question"]]["option"],
+                         question=sender_questions[session["current_question"]]["question"],
+                         options=sender_questions[session["current_question"]]["option"],
+                         question_number=session["current_question"])
+
+
+@app.route('/receiver', methods=['GET', 'POST'])
+def index():
+  if request.method == "POST":
+    
+    # The data has been submitted from the form via POST request.
+    # Now we need to validate it.
+    
+    entered_answer = request.form.get('answer', '')
+    
+    if not entered_answer:
+      flash("Please enter an answer", "error") # Show error if no answer entered
+      
+    elif entered_answer != receiver_questions[session["current_question"]]["answer"]:
+      # Show error if the answer is incorrect for the current question
+      flash("The answer is incorrect. Try again", "error")
+    
+    else:
+      # The answer is correct. So set the current question to the next number
+      session["current_question"] = str(int(session["current_question"])+1)
+    
+      if session["current_question"] in receiver_questions:
+        # If the question exists in the dictionary, redirect to the question
+        redirect(url_for('index'))
+      
+      else:
+        # else redirect to the success template as the quiz is complete.
+        return render_template("success.html")
+  
+  if "current_question" not in session:
+    # The first time the page is loaded, the current question is not set.
+    # This means that the user has not started to quiz yet. So set the 
+    # current question to question 1 and save it in the session.
+    session["current_question"] = "1"
+  
+  elif session["current_question"] not in receiver_questions:
+    # If the current question number is not available in the questions
+    # dictionary, it means that the user has completed the quiz. So show
+    # the success page.
+    return render_template("success.html")
+  
+  # If the request is a GET request or the answer wasn't entered or the entered
+  # answer is wrong, show the current questions with messages, if any.
+  return render_template("quiz.html",
+                         question=receiver_questions[session["current_question"]]["question"],
+                         options=receiver_questions[session["current_question"]]["option"],
                          question_number=session["current_question"])
 
 # Runs the app using the web server on port 80, the standard HTTP port
