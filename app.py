@@ -64,7 +64,7 @@ def hello_world():
    return render_template('first.html')
 
 @app.route('/sender', methods=['GET', 'POST'])
-def index():
+def sender():
   if request.method == "POST":
     
     # The data has been submitted from the form via POST request.
@@ -112,7 +112,7 @@ def index():
 
 
 @app.route('/receiver', methods=['GET', 'POST'])
-def index():
+def receiver():
   if request.method == "POST":
     
     # The data has been submitted from the form via POST request.
