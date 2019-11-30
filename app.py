@@ -71,6 +71,9 @@ def sender():
     # Now we need to validate it.
     
     entered_answer = request.form.get('answer', '')
+    option = request.form.get('op', '')
+    print("HERE")
+    print(option)
     
     if not entered_answer:
       flash("Please enter an answer", "error") # Show error if no answer entered
