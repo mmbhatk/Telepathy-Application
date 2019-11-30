@@ -52,7 +52,8 @@ receiver_questions = { "1" : { "question" : "Select the strangest object that yo
               "15" : { "question" : "Select the strangest object that you find into your mind. If you received any of the below objects, select any one that is most close to your one.", "answer" : "Barack Obama", "option": {"Static vision", "Dynamic vision", "Color", "Words", "Did not receive anything"}},
               "16" : { "question" : "Open your eyes. Please let us know what you have felt during the trail.", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}}}
 
-
+sender_answers = []
+receiver_answers = []
 
 # Route for the URL / accepting GET and POST methods
 # We are using session variables to keep track of the current question
@@ -60,7 +61,7 @@ receiver_questions = { "1" : { "question" : "Select the strangest object that yo
 # or opens the page in a new tab.
 
 @app.route('/')
-def hello_world():
+def home():
    return render_template('first.html')
 
 @app.route('/sender', methods=['GET', 'POST'])
@@ -71,7 +72,7 @@ def sender():
     # Now we need to validate it.
     
     entered_answer = request.form.get('answer', '')
-    option = request.form.get('op', '')
+    option = request.form.get('op')
     print("HERE")
     print(option)
     
@@ -88,7 +89,7 @@ def sender():
     
       if session["current_question"] in sender_questions:
         # If the question exists in the dictionary, redirect to the question
-        redirect(url_for('index'))
+        redirect(url_for('sender'))
       
       else:
         # else redirect to the success template as the quiz is complete.
@@ -136,7 +137,7 @@ def receiver():
     
       if session["current_question"] in receiver_questions:
         # If the question exists in the dictionary, redirect to the question
-        redirect(url_for('index'))
+        redirect(url_for('receiver'))
       
       else:
         # else redirect to the success template as the quiz is complete.

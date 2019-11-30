@@ -15,14 +15,14 @@
         {{ message }}
       </div>
       {% endfor %}
-      <form class="form" action="." method="post">
+      <form class="form" action="/sender" method="post">
         <div class="form-group">
           <span class="col-lg-2">{{ question_number }}. {{ question }}</span>
           <div class="col-lg-2">
             <input type="text" name="answer" placeholder="Answer"
                    class="form-control">
             {% for option in options %}
-            <input type="radio" name="op" value="1">{{ option }}<br>
+              <input type="radio" name="op" value={{option}}>{{ option }}<br>
             {% endfor %}
           </div>
         <input type="submit" class="btn btn-primary" value="Submit">
