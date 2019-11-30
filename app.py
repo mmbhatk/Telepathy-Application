@@ -58,7 +58,12 @@ questions = { "1" : { "question" : "Select the strangest object that you find in
 # We are using session variables to keep track of the current question
 # the user is in and show him just that question even if he reloads the page
 # or opens the page in a new tab.
-@app.route('/', methods=['GET', 'POST'])
+
+@app.route('/')
+def hello_world():
+   return render_template('first.html')
+
+@app.route('/sender', methods=['GET', 'POST'])
 def index():
   if request.method == "POST":
     
