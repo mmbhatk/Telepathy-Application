@@ -6,6 +6,8 @@ import os
 # 'redirect' to redirect to a given URL
 # 'request' to access the request object which contains the request data
 # 'flash' to display messages in the template
+import sqlite3
+import ast
 from flask import Flask, session, render_template, url_for, redirect, request, flash
 
 
@@ -19,41 +21,42 @@ app.secret_key = os.urandom(24)
 # The questions are numbered from 1 to 5
 
 sender_questions = { "1" : { "question" : "What is this colour name?", "answer" : "Barack Obama", "option": {"Black", "White", "Blue", "Red", "Green"}},
-              "2" : { "question" : "What do you feel when you are looking at this colour?", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
-              "3" : { "question" : "Choose any below item that you think is related with this picture.", "answer" : "Barack Obama", "option": {"Girl/Sea/Bicycle/Flower/Tree", "Fire/War/Soldier", "Sun/Old man/Car", "Window/Hotel/People"}},
-              "4" : { "question" : "What do you feel when you are looking at this picture?", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
-              "5" : { "question" : "What is this shape name?", "answer" : "New Delhi", "option" : {"Triangle", "Oval", "Cube", "Heart", "Arrow"}},
-              "6" : { "question" : "What do you feel when you are looking at this picture?", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
-              "7" : { "question" : "What is this number?", "answer" : "New Delhi", "option" : {"One", "Two", "Three", "Four", "Five"}},
-              "8" : { "question" : "What do you feel when you are looking at this picture?", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
-              "9" : { "question" : "Choose any below item that you think is related with this text.", "answer" : "New Delhi", "option" : {"Rain/Cloud", "Fire/War/Soldier", "Sun/Old man/Car", "Window/Hotel/People"}},
-              "10" : { "question" : "What do you feel when you are looking at this picture?", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
-              "11" : { "question" : "Choose any below item that you think is related with this text.", "answer" : "New Delhi", "option" : {"Bike/Book/Sandwich/Close shop", "Fire/War/Soldier", "Sun/Old man/Car", "Window/Hotel/People"}},
-              "12" : { "question" : "What do you feel when you are looking at this picture?", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
-              "13" : { "question" : "Choose any below item that you think is related with this Particular Name.", "answer" : "New Delhi", "option" : {"US Singer/Pop Star", "Fire/War/Soldier", "Sun/Old man/Car", "Window/Hotel/People"}},
-              "14" : { "question" : "What do you feel when you are looking at this picture?", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
-              "15" : { "question" : "Select the category that this name is belong to.", "answer" : "New Delhi", "option" : {"Country", "Actress", "Singer", "Family Member", "Artist"}},
-              "16" : { "question" : "What do you feel when you are looking at this picture?", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}}}
+              "2" : { "question" : "What do you feel when you are looking at this colour?", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}}}
+              # "3" : { "question" : "Choose any below item that you think is related with this picture.", "answer" : "Barack Obama", "option": {"Girl/Sea/Bicycle/Flower/Tree", "Fire/War/Soldier", "Sun/Old man/Car", "Window/Hotel/People"}},
+              # "4" : { "question" : "What do you feel when you are looking at this picture?", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
+              # "5" : { "question" : "What is this shape name?", "answer" : "New Delhi", "option" : {"Triangle", "Oval", "Cube", "Heart", "Arrow"}},
+              # "6" : { "question" : "What do you feel when you are looking at this picture?", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
+              # "7" : { "question" : "What is this number?", "answer" : "New Delhi", "option" : {"One", "Two", "Three", "Four", "Five"}},
+              # "8" : { "question" : "What do you feel when you are looking at this picture?", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
+              # "9" : { "question" : "Choose any below item that you think is related with this text.", "answer" : "New Delhi", "option" : {"Rain/Cloud", "Fire/War/Soldier", "Sun/Old man/Car", "Window/Hotel/People"}},
+              # "10" : { "question" : "What do you feel when you are looking at this picture?", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
+              # "11" : { "question" : "Choose any below item that you think is related with this text.", "answer" : "New Delhi", "option" : {"Bike/Book/Sandwich/Close shop", "Fire/War/Soldier", "Sun/Old man/Car", "Window/Hotel/People"}},
+              # "12" : { "question" : "What do you feel when you are looking at this picture?", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
+              # "13" : { "question" : "Choose any below item that you think is related with this Particular Name.", "answer" : "New Delhi", "option" : {"US Singer/Pop Star", "Fire/War/Soldier", "Sun/Old man/Car", "Window/Hotel/People"}},
+              # "14" : { "question" : "What do you feel when you are looking at this picture?", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
+              # "15" : { "question" : "Select the category that this name is belong to.", "answer" : "New Delhi", "option" : {"Country", "Actress", "Singer", "Family Member", "Artist"}},
+              # "16" : { "question" : "What do you feel when you are looking at this picture?", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}}}
 
 receiver_questions = { "1" : { "question" : "Select the strangest object that you find into your mind. If you received any of the below objects, select any one that is most close to your one.", "answer" : "Barack Obama", "option": {"Static vision", "Dynamic vision", "Color", "Words", "Did not receive anything"}},
-              "2" : { "question" : "Open your eyes. Please let us know what you have felt during the trail.", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
-              "3" : { "question" : "Select the strangest object that you find into your mind. If you received any of the below objects, select any one that is most close to your one.", "answer" : "Barack Obama", "option": {"Static vision", "Dynamic vision", "Color", "Words", "Did not receive anything"}},
-              "4" : { "question" : "Open your eyes. Please let us know what you have felt during the trail.", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
-              "5" : { "question" : "Select the strangest object that you find into your mind. If you received any of the below objects, select any one that is most close to your one.", "answer" : "Barack Obama", "option": {"Static vision", "Dynamic vision", "Color", "Words", "Did not receive anything"}},
-              "6" : { "question" : "Open your eyes. Please let us know what you have felt during the trail.", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
-              "7" : { "question" : "Select the strangest object that you find into your mind. If you received any of the below objects, select any one that is most close to your one.", "answer" : "Barack Obama", "option": {"Static vision", "Dynamic vision", "Color", "Words", "Did not receive anything"}},
-              "8" : { "question" : "Open your eyes. Please let us know what you have felt during the trail.", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
-              "9" : { "question" : "Select the strangest object that you find into your mind. If you received any of the below objects, select any one that is most close to your one.", "answer" : "Barack Obama", "option": {"Static vision", "Dynamic vision", "Color", "Words", "Did not receive anything"}},
-              "10" : { "question" : "Open your eyes. Please let us know what you have felt during the trail.", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
-              "11" : { "question" : "Select the strangest object that you find into your mind. If you received any of the below objects, select any one that is most close to your one.", "answer" : "Barack Obama", "option": {"Static vision", "Dynamic vision", "Color", "Words", "Did not receive anything"}},
-              "12" : { "question" : "Open your eyes. Please let us know what you have felt during the trail.", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
-              "13" : { "question" : "Select the strangest object that you find into your mind. If you received any of the below objects, select any one that is most close to your one.", "answer" : "Barack Obama", "option": {"Static vision", "Dynamic vision", "Color", "Words", "Did not receive anything"}},
-              "14" : { "question" : "Open your eyes. Please let us know what you have felt during the trail.", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
-              "15" : { "question" : "Select the strangest object that you find into your mind. If you received any of the below objects, select any one that is most close to your one.", "answer" : "Barack Obama", "option": {"Static vision", "Dynamic vision", "Color", "Words", "Did not receive anything"}},
-              "16" : { "question" : "Open your eyes. Please let us know what you have felt during the trail.", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}}}
+              "2" : { "question" : "Open your eyes. Please let us know what you have felt during the trail.", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}}}
+              # "3" : { "question" : "Select the strangest object that you find into your mind. If you received any of the below objects, select any one that is most close to your one.", "answer" : "Barack Obama", "option": {"Static vision", "Dynamic vision", "Color", "Words", "Did not receive anything"}},
+              # "4" : { "question" : "Open your eyes. Please let us know what you have felt during the trail.", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
+              # "5" : { "question" : "Select the strangest object that you find into your mind. If you received any of the below objects, select any one that is most close to your one.", "answer" : "Barack Obama", "option": {"Static vision", "Dynamic vision", "Color", "Words", "Did not receive anything"}},
+              # "6" : { "question" : "Open your eyes. Please let us know what you have felt during the trail.", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
+              # "7" : { "question" : "Select the strangest object that you find into your mind. If you received any of the below objects, select any one that is most close to your one.", "answer" : "Barack Obama", "option": {"Static vision", "Dynamic vision", "Color", "Words", "Did not receive anything"}},
+              # "8" : { "question" : "Open your eyes. Please let us know what you have felt during the trail.", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
+              # "9" : { "question" : "Select the strangest object that you find into your mind. If you received any of the below objects, select any one that is most close to your one.", "answer" : "Barack Obama", "option": {"Static vision", "Dynamic vision", "Color", "Words", "Did not receive anything"}},
+              # "10" : { "question" : "Open your eyes. Please let us know what you have felt during the trail.", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
+              # "11" : { "question" : "Select the strangest object that you find into your mind. If you received any of the below objects, select any one that is most close to your one.", "answer" : "Barack Obama", "option": {"Static vision", "Dynamic vision", "Color", "Words", "Did not receive anything"}},
+              # "12" : { "question" : "Open your eyes. Please let us know what you have felt during the trail.", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
+              # "13" : { "question" : "Select the strangest object that you find into your mind. If you received any of the below objects, select any one that is most close to your one.", "answer" : "Barack Obama", "option": {"Static vision", "Dynamic vision", "Color", "Words", "Did not receive anything"}},
+              # "14" : { "question" : "Open your eyes. Please let us know what you have felt during the trail.", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
+              # "15" : { "question" : "Select the strangest object that you find into your mind. If you received any of the below objects, select any one that is most close to your one.", "answer" : "Barack Obama", "option": {"Static vision", "Dynamic vision", "Color", "Words", "Did not receive anything"}},
+              # "16" : { "question" : "Open your eyes. Please let us know what you have felt during the trail.", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}}}
 
 sender_answers = []
 receiver_answers = []
+num_ques = 2
 
 # Route for the URL / accepting GET and POST methods
 # We are using session variables to keep track of the current question
@@ -66,22 +69,50 @@ def home():
 
 @app.route('/sender', methods=['GET', 'POST'])
 def sender():
+  global sender_answers
   if request.method == "POST":
     
     # The data has been submitted from the form via POST request.
     # Now we need to validate it.
     
-    entered_answer = request.form.get('answer', '')
-    option = request.form.get('op')
-    print("HERE")
-    print(option)
+    # entered_answer = request.form.get('answer', '')
+    entered_answer = request.form.get('op')
+    print("ENTERED: ", entered_answer)
+    if not sender_answers and not entered_answer:
+      con = sqlite3.connect("Telepathyapp.db")
+      cursor = con.cursor()
+      cursor.execute("INSERT INTO answers VALUES (?, ?)", (1, str(sender_answers)))
+      con.commit()
+    if entered_answer:
+      try:
+            con = sqlite3.connect("Telepathyapp.db")
+            cursor = con.cursor()
+
+            query = """SELECT * FROM answers WHERE ID=1"""
+            cursor.execute(query)
+            sender_answers = cursor.fetchall()
+            sender_answers = ast.literal_eval((sender_answers[0][1]))
+            sender_answers.append(entered_answer)
+
+            query = """DELETE FROM answers WHERE ID=1"""
+            cursor.execute(query)
+
+            cursor.execute("INSERT INTO answers VALUES (?, ?)", (1, str(sender_answers)))
+            con.commit()
+
+            query = """SELECT * FROM answers"""
+            cursor.execute(query)
+            ans = cursor.fetchall()
+            for row in ans:
+              print("Row: ", row)
+
+            print("Successfully committed to the database.")
+      except:
+          print("In except")
+
     
     if not entered_answer:
-      flash("Please enter an answer", "error") # Show error if no answer entered
-      
-    elif entered_answer != sender_questions[session["current_question"]]["answer"]:
-      # Show error if the answer is incorrect for the current question
-      flash("The answer is incorrect. Try again", "error")
+      flash("Please select an answer", "error") # Show error if no answer entered
     
     else:
       # The answer is correct. So set the current question to the next number
@@ -93,6 +124,8 @@ def sender():
       
       else:
         # else redirect to the success template as the quiz is complete.
+        compute()
+        session["current_question"] = "1"
         return render_template("success.html")
   
   if "current_question" not in session:
@@ -105,6 +138,8 @@ def sender():
     # If the current question number is not available in the questions
     # dictionary, it means that the user has completed the quiz. So show
     # the success page.
+    compute()
+    session["current_question"] = "1"
     return render_template("success.html")
   
   # If the request is a GET request or the answer wasn't entered or the entered
@@ -112,24 +147,57 @@ def sender():
   return render_template("quiz.html",
                          question=sender_questions[session["current_question"]]["question"],
                          options=sender_questions[session["current_question"]]["option"],
-                         question_number=session["current_question"])
+                         question_number=session["current_question"],
+                         url = '/sender')
 
 
 @app.route('/receiver', methods=['GET', 'POST'])
 def receiver():
+  global receiver_answers
   if request.method == "POST":
     
     # The data has been submitted from the form via POST request.
     # Now we need to validate it.
     
-    entered_answer = request.form.get('answer', '')
+    # entered_answer = request.form.get('answer', '')
+    entered_answer = request.form.get('op')
+    print("ENTERED: ", entered_answer)
+    if not receiver_answers and not entered_answer:
+      con = sqlite3.connect("Telepathyapp.db")
+      cursor = con.cursor()
+      cursor.execute("INSERT INTO answers VALUES (?, ?)", (2, str(receiver_answers)))
+      con.commit()
+    if entered_answer:
+      print("HERE")
+      try:
+            con = sqlite3.connect("Telepathyapp.db")
+            cursor = con.cursor()
+
+            query = """SELECT * FROM answers WHERE ID=2"""
+            cursor.execute(query)
+            receiver_answers = cursor.fetchall()
+            receiver_answers = ast.literal_eval((receiver_answers[0][1]))
+            receiver_answers.append(entered_answer)
+
+            query = """DELETE FROM answers WHERE ID=2"""
+            cursor.execute(query)
+
+            cursor.execute("INSERT INTO answers VALUES (?, ?)", (2, str(receiver_answers)))
+            con.commit()
+
+            query = """SELECT * FROM answers"""
+            cursor.execute(query)
+            ans = cursor.fetchall()
+            for row in ans:
+              print("Row: ", row)
+
+            print("Successfully committed to the database.")
+      except:
+          print("In except")
+
     
     if not entered_answer:
-      flash("Please enter an answer", "error") # Show error if no answer entered
-      
-    elif entered_answer != receiver_questions[session["current_question"]]["answer"]:
-      # Show error if the answer is incorrect for the current question
-      flash("The answer is incorrect. Try again", "error")
+      flash("Please select an answer", "error") # Show error if no answer entered
     
     else:
       # The answer is correct. So set the current question to the next number
@@ -141,6 +209,8 @@ def receiver():
       
       else:
         # else redirect to the success template as the quiz is complete.
+        compute()
+        session["current_question"] = "1"
         return render_template("success.html")
   
   if "current_question" not in session:
@@ -153,6 +223,7 @@ def receiver():
     # If the current question number is not available in the questions
     # dictionary, it means that the user has completed the quiz. So show
     # the success page.
+    session["current_question"] = "1"
     return render_template("success.html")
   
   # If the request is a GET request or the answer wasn't entered or the entered
@@ -160,12 +231,33 @@ def receiver():
   return render_template("quiz.html",
                          question=receiver_questions[session["current_question"]]["question"],
                          options=receiver_questions[session["current_question"]]["option"],
-                         question_number=session["current_question"])
+                         question_number=session["current_question"],
+                         url = '/receiver')
+
+def compute():
+  print("In compute.")
+  con = sqlite3.connect("Telepathyapp.db")
+  cursor = con.cursor()
+  
+  query = """SELECT * FROM answers WHERE ID=1"""
+  cursor.execute(query)
+  sender_answers = cursor.fetchall()
+  if sender_answers: sender_answers = ast.literal_eval((sender_answers[-1][1]))
+  else: return
+  
+  query = """SELECT * FROM answers WHERE ID=2"""
+  cursor.execute(query)
+  receiver_answers = cursor.fetchall()
+  if receiver_answers: receiver_answers = ast.literal_eval((receiver_answers[-1][1]))
+  else: return
+  
+  print("OKAY, I AM IN COMPUTE")
+
+  count = sum(a==b for a, b in zip(sender_answers, receiver_answers))
+  print(*zip(sender_answers, receiver_answers))
+  print("SCORE: ", count, "!!!!!")
+
 
 # Runs the app using the web server on port 80, the standard HTTP port
 if __name__ == '__main__':
-	app.run( 
-        host="127.0.0.1",
-        port=int("5000"),
-        debug = True
-  )
+  app.run(host="127.0.0.1", port = int("5000"), debug = True)
