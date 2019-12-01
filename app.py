@@ -56,6 +56,7 @@ receiver_questions = { "1" : { "question" : "Select the strangest object that yo
 
 sender_answers = []
 receiver_answers = []
+correct_answers = ['Color', '', 'Static vision', '', 'Static vision', '', 'Static vision', '', 'Dynamic vision', '', 'Dynamic vision', '', 'Static vision', '', 'Static vision', '']
 num_ques = 2
 
 # Route for the URL / accepting GET and POST methods
@@ -253,9 +254,12 @@ def compute():
   
   print("OKAY, I AM IN COMPUTE")
 
-  count = sum(a==b for a, b in zip(sender_answers, receiver_answers))
-  print(*zip(sender_answers, receiver_answers))
-  print("SCORE: ", count, "!!!!!")
+  score = 0
+  # for i in range(len(sender_answers)):
+  for i in range(2):
+    if correct_answers[i]: score += (correct_answers[i] == receiver_answers[i])
+    else: score += (sender_answers[i] == receiver_answers[i])
+  print("SCORE: ", score, "!!!!!")
 
 
 # Runs the app using the web server on port 80, the standard HTTP port
