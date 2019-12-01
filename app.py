@@ -235,6 +235,12 @@ def receiver():
                          question_number=session["current_question"],
                          url = '/receiver')
 
+@app.route('/results')
+def results():
+  res = compute()
+  score, percentage = res[0], res[1]
+  return render_template('results.html', score = score, percentage = percentage)
+
 def compute():
   print("In compute.")
   con = sqlite3.connect("Telepathyapp.db")
@@ -259,7 +265,8 @@ def compute():
   for i in range(2):
     if correct_answers[i]: score += (correct_answers[i] == receiver_answers[i])
     else: score += (sender_answers[i] == receiver_answers[i])
-  print("SCORE: ", score, "!!!!!")
+  percentage = (score/16) * 100
+  return (score, percentage)
 
 
 # Runs the app using the web server on port 80, the standard HTTP port
