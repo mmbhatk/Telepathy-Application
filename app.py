@@ -125,7 +125,6 @@ def sender():
       
       else:
         # else redirect to the success template as the quiz is complete.
-        compute()
         session["current_question"] = "1"
         return render_template("success.html")
   
@@ -139,7 +138,6 @@ def sender():
     # If the current question number is not available in the questions
     # dictionary, it means that the user has completed the quiz. So show
     # the success page.
-    compute()
     session["current_question"] = "1"
     return render_template("success.html")
   
@@ -169,7 +167,6 @@ def receiver():
       cursor.execute("INSERT INTO answers VALUES (?, ?)", (2, str(receiver_answers)))
       con.commit()
     if entered_answer:
-      print("HERE")
       try:
             con = sqlite3.connect("Telepathyapp.db")
             cursor = con.cursor()
@@ -210,7 +207,6 @@ def receiver():
       
       else:
         # else redirect to the success template as the quiz is complete.
-        compute()
         session["current_question"] = "1"
         return render_template("success.html")
   
@@ -257,8 +253,6 @@ def compute():
   receiver_answers = cursor.fetchall()
   if receiver_answers: receiver_answers = ast.literal_eval((receiver_answers[-1][1]))
   else: return
-  
-  print("OKAY, I AM IN COMPUTE")
 
   score = 0
   # for i in range(len(sender_answers)):
@@ -267,7 +261,6 @@ def compute():
     else: score += (sender_answers[i] == receiver_answers[i])
   percentage = (score/16) * 100
   return (score, percentage)
-
 
 # Runs the app using the web server on port 80, the standard HTTP port
 if __name__ == '__main__':
