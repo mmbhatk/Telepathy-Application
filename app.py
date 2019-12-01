@@ -15,6 +15,8 @@ from flask import Flask, session, render_template, url_for, redirect, request, f
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
+PHOTOS_FOLDER = os.path.join('static', 'photos')
+app.config['UPLOAD_FOLDER'] = PHOTOS_FOLDER
 
 
 # 'questions' dictionary contains 5 questions and their answers.
@@ -143,11 +145,13 @@ def sender():
   
   # If the request is a GET request or the answer wasn't entered or the entered
   # answer is wrong, show the current questions with messages, if any.
+  full_filename = os.path.join(app.config['UPLOAD_FOLDER'], session["current_question"] + '.jpg')
   return render_template("quiz.html",
                          question=sender_questions[session["current_question"]]["question"],
                          options=sender_questions[session["current_question"]]["option"],
                          question_number=session["current_question"],
-                         url = '/sender')
+                         url = '/sender',
+                         user_image = full_filename)
 
 
 @app.route('/receiver', methods=['GET', 'POST'])
