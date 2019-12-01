@@ -23,38 +23,38 @@ app.config['UPLOAD_FOLDER'] = PHOTOS_FOLDER
 # The questions are numbered from 1 to 5
 
 sender_questions = { "1" : { "question" : "What is this colour name?", "answer" : "Barack Obama", "option": {"Black", "White", "Blue", "Red", "Green"}},
-              "2" : { "question" : "What do you feel when you are looking at this colour?", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}}}
-              # "3" : { "question" : "Choose any below item that you think is related with this picture.", "answer" : "Barack Obama", "option": {"Girl/Sea/Bicycle/Flower/Tree", "Fire/War/Soldier", "Sun/Old man/Car", "Window/Hotel/People"}},
-              # "4" : { "question" : "What do you feel when you are looking at this picture?", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
-              # "5" : { "question" : "What is this shape name?", "answer" : "New Delhi", "option" : {"Triangle", "Oval", "Cube", "Heart", "Arrow"}},
-              # "6" : { "question" : "What do you feel when you are looking at this picture?", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
-              # "7" : { "question" : "What is this number?", "answer" : "New Delhi", "option" : {"One", "Two", "Three", "Four", "Five"}},
-              # "8" : { "question" : "What do you feel when you are looking at this picture?", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
-              # "9" : { "question" : "Choose any below item that you think is related with this text.", "answer" : "New Delhi", "option" : {"Rain/Cloud", "Fire/War/Soldier", "Sun/Old man/Car", "Window/Hotel/People"}},
-              # "10" : { "question" : "What do you feel when you are looking at this picture?", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
-              # "11" : { "question" : "Choose any below item that you think is related with this text.", "answer" : "New Delhi", "option" : {"Bike/Book/Sandwich/Close shop", "Fire/War/Soldier", "Sun/Old man/Car", "Window/Hotel/People"}},
-              # "12" : { "question" : "What do you feel when you are looking at this picture?", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
-              # "13" : { "question" : "Choose any below item that you think is related with this Particular Name.", "answer" : "New Delhi", "option" : {"US Singer/Pop Star", "Fire/War/Soldier", "Sun/Old man/Car", "Window/Hotel/People"}},
-              # "14" : { "question" : "What do you feel when you are looking at this picture?", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
-              # "15" : { "question" : "Select the category that this name is belong to.", "answer" : "New Delhi", "option" : {"Country", "Actress", "Singer", "Family Member", "Artist"}},
-              # "16" : { "question" : "What do you feel when you are looking at this picture?", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}}}
+              "2" : { "question" : "What do you feel when you are looking at this colour?", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
+              "3" : { "question" : "Choose any below item that you think is related with this picture.", "answer" : "Barack Obama", "option": {"Girl/Sea/Bicycle/Flower/Tree", "Fire/War/Soldier", "Sun/Old man/Car", "Window/Hotel/People"}},
+              "4" : { "question" : "What do you feel when you are looking at this picture?", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
+              "5" : { "question" : "What is this shape name?", "answer" : "New Delhi", "option" : {"Triangle", "Oval", "Cube", "Heart", "Arrow"}},
+              "6" : { "question" : "What do you feel when you are looking at this picture?", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
+              "7" : { "question" : "What is this number?", "answer" : "New Delhi", "option" : {"One", "Two", "Three", "Four", "Five"}},
+              "8" : { "question" : "What do you feel when you are looking at this picture?", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
+              "9" : { "question" : "Choose any below item that you think is related with this text.", "answer" : "New Delhi", "option" : {"Rain/Cloud", "Fire/War/Soldier", "Sun/Old man/Car", "Window/Hotel/People"}},
+              "10" : { "question" : "What do you feel when you are looking at this picture?", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
+              "11" : { "question" : "Choose any below item that you think is related with this text.", "answer" : "New Delhi", "option" : {"Bike/Book/Sandwich/Close shop", "Fire/War/Soldier", "Sun/Old man/Car", "Window/Hotel/People"}},
+              "12" : { "question" : "What do you feel when you are looking at this picture?", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
+              "13" : { "question" : "Choose any below item that you think is related with this Particular Name.", "answer" : "New Delhi", "option" : {"US Singer/Pop Star", "Fire/War/Soldier", "Sun/Old man/Car", "Window/Hotel/People"}},
+              "14" : { "question" : "What do you feel when you are looking at this picture?", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
+              "15" : { "question" : "Select the category that this name is belong to.", "answer" : "New Delhi", "option" : {"Country", "Actress", "Singer", "Family Member", "Artist"}},
+              "16" : { "question" : "What do you feel when you are looking at this picture?", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}}}
 
 receiver_questions = { "1" : { "question" : "Select the strangest object that you find into your mind. If you received any of the below objects, select any one that is most close to your one.", "answer" : "Barack Obama", "option": {"Static vision", "Dynamic vision", "Color", "Words", "Did not receive anything"}},
-              "2" : { "question" : "Open your eyes. Please let us know what you have felt during the trail.", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}}}
-              # "3" : { "question" : "Select the strangest object that you find into your mind. If you received any of the below objects, select any one that is most close to your one.", "answer" : "Barack Obama", "option": {"Static vision", "Dynamic vision", "Color", "Words", "Did not receive anything"}},
-              # "4" : { "question" : "Open your eyes. Please let us know what you have felt during the trail.", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
-              # "5" : { "question" : "Select the strangest object that you find into your mind. If you received any of the below objects, select any one that is most close to your one.", "answer" : "Barack Obama", "option": {"Static vision", "Dynamic vision", "Color", "Words", "Did not receive anything"}},
-              # "6" : { "question" : "Open your eyes. Please let us know what you have felt during the trail.", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
-              # "7" : { "question" : "Select the strangest object that you find into your mind. If you received any of the below objects, select any one that is most close to your one.", "answer" : "Barack Obama", "option": {"Static vision", "Dynamic vision", "Color", "Words", "Did not receive anything"}},
-              # "8" : { "question" : "Open your eyes. Please let us know what you have felt during the trail.", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
-              # "9" : { "question" : "Select the strangest object that you find into your mind. If you received any of the below objects, select any one that is most close to your one.", "answer" : "Barack Obama", "option": {"Static vision", "Dynamic vision", "Color", "Words", "Did not receive anything"}},
-              # "10" : { "question" : "Open your eyes. Please let us know what you have felt during the trail.", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
-              # "11" : { "question" : "Select the strangest object that you find into your mind. If you received any of the below objects, select any one that is most close to your one.", "answer" : "Barack Obama", "option": {"Static vision", "Dynamic vision", "Color", "Words", "Did not receive anything"}},
-              # "12" : { "question" : "Open your eyes. Please let us know what you have felt during the trail.", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
-              # "13" : { "question" : "Select the strangest object that you find into your mind. If you received any of the below objects, select any one that is most close to your one.", "answer" : "Barack Obama", "option": {"Static vision", "Dynamic vision", "Color", "Words", "Did not receive anything"}},
-              # "14" : { "question" : "Open your eyes. Please let us know what you have felt during the trail.", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
-              # "15" : { "question" : "Select the strangest object that you find into your mind. If you received any of the below objects, select any one that is most close to your one.", "answer" : "Barack Obama", "option": {"Static vision", "Dynamic vision", "Color", "Words", "Did not receive anything"}},
-              # "16" : { "question" : "Open your eyes. Please let us know what you have felt during the trail.", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}}}
+              "2" : { "question" : "Open your eyes. Please let us know what you have felt during the trial.", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
+              "3" : { "question" : "Select the strangest object that you find into your mind. If you received any of the below objects, select any one that is most close to your one.", "answer" : "Barack Obama", "option": {"Static vision", "Dynamic vision", "Color", "Words", "Did not receive anything"}},
+              "4" : { "question" : "Open your eyes. Please let us know what you have felt during the trial.", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
+              "5" : { "question" : "Select the strangest object that you find into your mind. If you received any of the below objects, select any one that is most close to your one.", "answer" : "Barack Obama", "option": {"Static vision", "Dynamic vision", "Color", "Words", "Did not receive anything"}},
+              "6" : { "question" : "Open your eyes. Please let us know what you have felt during the trial.", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
+              "7" : { "question" : "Select the strangest object that you find into your mind. If you received any of the below objects, select any one that is most close to your one.", "answer" : "Barack Obama", "option": {"Static vision", "Dynamic vision", "Color", "Words", "Did not receive anything"}},
+              "8" : { "question" : "Open your eyes. Please let us know what you have felt during the trial.", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
+              "9" : { "question" : "Select the strangest object that you find into your mind. If you received any of the below objects, select any one that is most close to your one.", "answer" : "Barack Obama", "option": {"Static vision", "Dynamic vision", "Color", "Words", "Did not receive anything"}},
+              "10" : { "question" : "Open your eyes. Please let us know what you have felt during the trial.", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
+              "11" : { "question" : "Select the strangest object that you find into your mind. If you received any of the below objects, select any one that is most close to your one.", "answer" : "Barack Obama", "option": {"Static vision", "Dynamic vision", "Color", "Words", "Did not receive anything"}},
+              "12" : { "question" : "Open your eyes. Please let us know what you have felt during the trial.", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
+              "13" : { "question" : "Select the strangest object that you find into your mind. If you received any of the below objects, select any one that is most close to your one.", "answer" : "Barack Obama", "option": {"Static vision", "Dynamic vision", "Color", "Words", "Did not receive anything"}},
+              "14" : { "question" : "Open your eyes. Please let us know what you have felt during the trial.", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}},
+              "15" : { "question" : "Select the strangest object that you find into your mind. If you received any of the below objects, select any one that is most close to your one.", "answer" : "Barack Obama", "option": {"Static vision", "Dynamic vision", "Color", "Words", "Did not receive anything"}},
+              "16" : { "question" : "Open your eyes. Please let us know what you have felt during the trial.", "answer" : "New Delhi", "option" : {"Positive", "Negative", "Lust", "No feeling change"}}}
 
 sender_answers = []
 receiver_answers = []
@@ -259,8 +259,7 @@ def compute():
   else: return
 
   score = 0
-  # for i in range(len(sender_answers)):
-  for i in range(2):
+  for i in range(len(sender_answers)):
     if correct_answers[i]: score += (correct_answers[i] == receiver_answers[i])
     else: score += (sender_answers[i] == receiver_answers[i])
   percentage = (score/16) * 100

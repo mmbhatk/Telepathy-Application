@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
   <head>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
@@ -19,13 +19,72 @@
         <div class="form-group">
           <span class="col-lg-2">{{ question_number }}. {{ question }}</span>
           <div class="col-lg-2">
-            <!-- <input type="text" name="answer" placeholder="Answer" class="form-control"> -->
             {% for option in options %}
               <input type="radio" name="op" value={{option}}>{{ option }}<br>
             {% endfor %}
           </div>
         <input type="submit" class="btn btn-primary" value="Submit">
         <img src="{{ user_image }}" alt="User Image">
+      </form>
+    </div>
+  </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <style>
+  body {
+   background:lightgray;
+   text-align: center;
+   font-size: 30px;
+}
+.btn-primary{
+  font-size: 20px;
+width:250px;
+ display: inline-block;
+  padding: 15px 25px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+
+  </style>
+  <head>
+    
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h3 class="text-muted">Telepathy Application</h3>
+      </div>
+      <hr/>
+      {% for category, message in get_flashed_messages(with_categories=true) %}
+      <div class="alert alert-danger">
+        {{ message }}
+      </div>
+      {% endfor %}
+      <form class="form" action={{url}} method="post">
+        <div class="form-group">
+          <span class="col-lg-2">{{ question_number }}. {{ question }}</span>
+          <div class="col-lg-2">
+            {% if(url=='/sender') %}
+            <img src="{{ user_image }}" alt="User Image">
+            {% endif %}
+            <br>
+            {% for option in options %}
+              <input type="radio" name="op" value={{option}}>{{ option }}<br>
+            {% endfor %}
+          </div>
+      <div class="btn group">
+        <input type="submit" class="btn btn-primary" value="Submit">
+      </div>
       </form>
     </div>
   </body>

@@ -1,4 +1,4 @@
-<!Doctype html>
+<!-- <!Doctype html>
 <html>
 <style>
 .btn-group button {
@@ -36,6 +36,101 @@
       </form>
       <form action="/receiver" method="post">
             <button name="ReceiverBtn" type="submit">Receiver</button>
+      </form>
+</div>
+
+</body>
+</html> -->
+<!Doctype html>
+<html>
+<style>
+.btn-group button {
+      background-color: #4CAF50; /* Green background */
+      border: 1px solid green; /* Green border */
+      color: white; /* White text */
+      padding: 10px 24px; /* Some padding */
+      cursor: pointer; /* Pointer/hand icon */
+      float: left; /* Float the buttons side by side */
+}
+
+/* Clear floats (clearfix hack) */
+.btn-group:after {
+      content: "";
+      clear: both;
+      display: table;
+}
+
+.btn-group button:not(:last-child) {
+      border-right: none; /* Prevent double borders */
+}
+
+/* Add a background color on hover */
+.btn-group button:hover {
+      background-color:blueviolet;
+}
+h1{
+   margin-left: auto;
+    margin-right: auto;
+    width: 8em; 
+}
+h1{
+ font-family: "Courier New";
+ font-weight:bold;
+ font-size:10vw;
+ text-align:center;
+
+}
+div.btn-group
+{
+  margin-left: auto;
+    margin-right: auto;
+    width: 8em
+}
+body {
+   background:lightgray;
+   text-align: center;
+}
+.button1 {font-size: 20px;
+width:250px;
+ display: inline-block;
+  padding: 15px 25px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+.button2 {font-size: 20px;
+width:250px;
+ display: inline-block;
+  padding: 15px 25px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+</style>
+<body>
+
+<h1>What do you want to be?</h1>
+
+<div class="btn-group">
+      <form action="/sender" method="post">
+            <button style="margin:5px" class="button button1" name="SenderBtn" type="submit">Sender</button>
+      </form>
+      <form action="/receiver" method="post">
+            <button name="ReceiverBtn" class="button button2" type="submit">Receiver</button>
       </form>
 </div>
 
