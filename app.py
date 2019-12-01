@@ -15,7 +15,7 @@ from flask import Flask, session, render_template, url_for, redirect, request, f
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
-PHOTOS_FOLDER = os.path.join('static', 'photos')
+PHOTOS_FOLDER = os.path.join('/static', 'photos')
 app.config['UPLOAD_FOLDER'] = PHOTOS_FOLDER
 
 
@@ -145,7 +145,7 @@ def sender():
   
   # If the request is a GET request or the answer wasn't entered or the entered
   # answer is wrong, show the current questions with messages, if any.
-  full_filename = os.path.join(app.config['UPLOAD_FOLDER'], session["current_question"] + '.jpg')
+  full_filename = os.path.join(app.config['UPLOAD_FOLDER'], session["current_question"] + '.JPG')
   return render_template("quiz.html",
                          question=sender_questions[session["current_question"]]["question"],
                          options=sender_questions[session["current_question"]]["option"],
@@ -259,7 +259,7 @@ def compute():
   else: return
 
   score = 0
-  for i in range(len(sender_answers)):
+  for i in range(len(correct_answers)):
     if correct_answers[i]: score += (correct_answers[i] == receiver_answers[i])
     else: score += (sender_answers[i] == receiver_answers[i])
   percentage = (score/16) * 100
